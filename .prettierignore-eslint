@@ -1,0 +1,13 @@
+node_modules/
+coverage
+dist
+.*
+*.prettierignore
+*.tsbuildinfo
+*.lock
+
+# Will be linted by ESLint
+*.tsx
+*.ts
+*.js
+# *.json
