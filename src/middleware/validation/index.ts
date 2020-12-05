@@ -1,8 +1,6 @@
-import { ErrorRequestHandler, RequestHandler } from "express";
-import { ValidationError, validate } from "class-validator";
-
-import { GeneralResponse } from "../../types";
+import { RequestHandler } from "express";
 import { plainToClass } from "class-transformer";
+import { validate } from "class-validator";
 
 // Because all type information is erased in the compiled
 // JavaScript, we can use this clever structural-typing
@@ -20,35 +18,18 @@ export const validateMw = <T>(dto: Constructor<T>): RequestHandler => {
 
     const errors = await validate(output);
     if (errors.length > 0) {
-      next(errors);
+      res
+        .status(400)
+        .json({
+          code: 400,
+          msg: errors[0].constraints
+            ? Object.values(errors[0].constraints).join(", ")
+            : errors[0].property,
+        })
+        .end();
     } else {
       req.body = output;
       next();
     }
   };
-};
-
-/**
- * Middleware for handling validation error, and properly display the errors in the response
- * @param err error from validation middleware
- * @param req Express request object
- * @param res Express response object
- * @param next Express Next object
- */
-export const validationError: ErrorRequestHandler<
-  Record<string, unknown>,
-  GeneralResponse,
-  unknown
-> = (err: ValidationError[], req, res, next) => {
-  if (err instanceof Array && err[0] instanceof ValidationError) {
-    res
-      .status(400)
-      .json({
-        code: 400,
-        msg: Object.values(err[0].constraints || {}).join(", "),
-      })
-      .end();
-  } else {
-    next(err);
-  }
 };

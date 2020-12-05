@@ -1,20 +1,4 @@
-import express from "express";
-import { healthController } from "./controllers/health";
-import { json } from "body-parser";
-import { recordsController } from "./controllers/records";
-import { validationError } from "./middleware/validation";
-
-const app = express();
-
-// Global middleware setup
-app.use(json());
-
-// Controllers
-app.use("/", healthController);
-app.use("/records", recordsController);
-
-// Global fallback middleware
-app.use(validationError);
+import { app } from "./app";
 
 // Bootstrap the app
 const port = process.env.PORT || 3000;
