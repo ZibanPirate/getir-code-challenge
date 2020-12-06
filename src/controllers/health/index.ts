@@ -1,4 +1,4 @@
-import { HealthGetResponse } from "./types";
+import { HealthGetResponse } from "./health.types";
 import { Router } from "express";
 
 const healthController = Router();
