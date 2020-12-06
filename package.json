@@ -10,7 +10,7 @@
     "clean": "rimraf dist",
     "dev": "concurrently \"yarn build:watch\" \"yarn start:dev\"",
     "build:watch": "tsc --watch",
-    "start:dev": "nodemon dist/index.js",
+    "start:dev": "nodemon -r dotenv/config dist/index.js",
     "lint:check": "yarn eslint:check && yarn prettier:check",
     "lint:fix": "yarn eslint:fix && yarn prettier:fix",
     "eslint:check": "eslint \"{src,test}/**/*.ts\"",
@@ -38,6 +38,7 @@
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "express": "^4.17.1",
+    "mongoose": "^5.11.4",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
@@ -50,6 +51,7 @@
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.9",
     "@types/jest": "^26.0.16",
+    "@types/mongoose": "^5.10.2",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",

@@ -1,3 +1,7 @@
+// db setup
+import "./services/mongodb";
+
+import { errorHandler } from "./middleware/error-handler";
 import express from "express";
 import { healthController } from "./controllers/health";
 import { json } from "body-parser";
