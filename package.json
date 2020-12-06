@@ -20,7 +20,12 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:cov": "jest --coverage",
-    "test:cov:watch": "jest --watchAll --coverage"
+    "test:cov:watch": "jest --watchAll --coverage",
+    "build": "yarn clean && tsc",
+    "start": "node dist/index.js",
+    "copy-to-heroku": "rimraf heroku/dist && cpx -u \"./{.*,*.*}\" ./heroku/dist && cpx -u \"./src/**/*\" ./heroku/dist/src && cpx -u \"./test/**/*\" ./heroku/dist/test && rimraf heroku/dist/*.lock",
+    "deploy-to-heroku": "cd ./heroku/dist && git init && heroku git:remote -a getir-zak && git add . && git commit -am \"deploy to heroku\" && git push -f heroku master",
+    "deploy": "yarn copy-to-heroku && node heroku/prune-package.js && yarn deploy-to-heroku"
   },
   "husky": {
     "hooks": {
@@ -32,6 +37,9 @@
       "eslint --quiet --fix --ignore-path .eslintignore",
       "prettier --write --ignore-path ./.prettierignore-eslint"
     ]
+  },
+  "engines": {
+    "yarn": "1"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -57,6 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "concurrently": "^5.3.0",
+    "cpx": "^1.5.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^6.15.0",
