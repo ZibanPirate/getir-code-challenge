@@ -1,4 +1,4 @@
-import { HealthGetResponse } from "../src/controllers/health/types";
+import { HealthGetResponse } from "../src/controllers/health/health.types";
 import { app } from "../src/app";
 import request from "supertest";
 

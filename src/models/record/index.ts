@@ -3,7 +3,10 @@ import { RecordDocument, RecordWithTotalCount } from "./record.types";
 import { RecordSchema } from "./record.schemas";
 import { model } from "mongoose";
 
-const RecordMongooseModel = model<RecordDocument>("record", RecordSchema);
+export const RecordMongooseModel = model<RecordDocument>(
+  "record",
+  RecordSchema,
+);
 
 export class RecordModel {
   static fetchRecords = async (

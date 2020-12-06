@@ -5,7 +5,7 @@ export const errorHandler: ErrorRequestHandler<
   never,
   GeneralResponse,
   unknown
-> = async (err, req, res, next) => {
+> = (err, req, res, next) => {
   // Logs error
   console.log("🚩 Internal Server Error");
   console.log(err);
@@ -18,6 +18,6 @@ export const errorHandler: ErrorRequestHandler<
   // return a general error response
   res.status(500).json({
     code: 500,
-    msg: err.message || "Internal server error",
+    msg: err.message,
   });
 };
